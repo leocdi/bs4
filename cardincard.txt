@@ -1,0 +1,24 @@
+@for (int i = 0; i < 5; i++)
+{
+    <div class="card mt-3 border-light bg-light ">
+        <div class="card-body pl-3 pr-3 pb-0 pt-2">
+            <h6 style="display:inline" class="card-title  text-info m-0">AAAAAAAA<small>(0033) <a href="#" class="card-link">Card link</a></small></h6>
+            <i style="display:inline" class="small card-text m-0"> Some example text. Some example text.</i>            
+            <div class="row">
+                @for (int j = 0; j < rand.Next(3, 15); j++)
+                {
+                    <div class="col-md-2 p-0 pt-1">
+                        <div class="card-hover card m-2 bg-white border-light" >
+                            <div class="card-body pt-0 pb-0">
+                                <h7 class="card-title p-0 small">BBBBB <small>( 0350)</small></h7>
+                                <p class="m-0 small card-text text-muted">Some example text.</p>
+                                <a href="#" class="stretched-link card-link small">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+}
