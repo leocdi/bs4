@@ -1,0 +1,88 @@
+﻿@model DLGBd.Models.TauxActivitesEditDto
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Scripts {
+    <script>
+        $(".taux-input").on('change', function () {
+            var parent = $(this).closest('tr');
+            console.log($(parent));
+
+            taux = parent.find(".taux-input").map(function () {
+                let v = parseInt($(this).val());
+                return Number.isNaN(v) ? 0 : v
+            }).get();
+
+            console.log(taux);
+
+            total = taux.reduce(function (acc, val) { return acc + val; }, 0)
+            console.log(total);
+
+            var elementTdTotal = parent.find(".totalInfo").text(total);
+            elementTdTotal.text(total);
+            if (total === 100) {
+                elementTdTotal.removeClass("text-warning")
+                elementTdTotal.addClass("text-success")
+            } else {
+                elementTdTotal.removeClass("text-success")
+                elementTdTotal.addClass("text-warning")
+
+            }
+
+            console.log(elementTdTotal)
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+
+    <table class="table table-striped table-borderless table-sm table-responsive">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Metier
+                </th>
+
+                @foreach (var act in Model.ListEnteteActivite)
+                {
+                    <th scope="col">@act.LibelleActivite</th>
+                    @Html.HiddenFor(m => Model.ListEnteteActivite[Model.ListEnteteActivite.IndexOf(act)].LibelleActivite)
+
+                }
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var metier in Model.ListEnteteMetier)
+            {
+                @Html.HiddenFor(m => Model.ListEnteteMetier[Model.ListEnteteMetier.IndexOf(metier)].LibelleMetier)
+
+                <tr>
+                    <th scope="row">
+                        @metier.LibelleMetier
+                    </th>
+
+                    @foreach (var act in Model.ListEnteteActivite)
+                    {
+                        var ligne = Model.ListTaux.First(x => x.FkLibelleActivite == act.LibelleActivite && x.FkLibelleMetier == metier.LibelleMetier);
+                        var index = Model.ListTaux.IndexOf(ligne);
+
+                        <td>
+                            @Html.HiddenFor(m => Model.ListTaux[index].FkLibelleActivite)
+                            @Html.HiddenFor(m => Model.ListTaux[index].FkLibelleMetier)
+                            @Html.EditorFor(m => Model.ListTaux[index].Taux, new { htmlAttributes = new { @class = "taux-input form-control form-control-sm" } })
+                        </td>
+                    }
+                    <td class="totalInfo">@Model.ListTaux.Where(t => t.FkLibelleMetier == metier.LibelleMetier).Sum(g => g.Taux)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <button class="btn btn-primary" type="submit">sub</button>
+}
