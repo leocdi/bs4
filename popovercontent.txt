@@ -1,0 +1,27 @@
+@if (Model != null && Model.Any())
+{
+    <div class="">
+        <table class="table-striped">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="pl-2 pr-2">
+                            @for (int i = 0; i < r; i++)
+                            {
+                                @item.ID_Code<span> </span>
+                            }
+                        </td>
+                        <td class="pr-2 pl-2 border-left">
+                            <small class="text-muted">AGENCE</small>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <span>Aucun poste</span>
+}
