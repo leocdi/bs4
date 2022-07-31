@@ -1,0 +1,24 @@
+- Pour le popover large :
+
+Ajouter ce css et voir dans le doc poloadTimer.txt comment la class est injecté dans le script
+
+.popover-large {
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+}
+
+
+- ScrollSpy
+dans  le css, 100vh permet de dire que la taille sera 100% du viewport, du coup c'est dynamique par rapport a la taille de l'onglet.
+la deuxième regle permet de masquer la seconde scrollbar
+
+.scrollspy-example {
+    position: relative;
+    height:100vh;
+    overflow: auto;
+
+}
+
+    .scrollspy-example::-webkit-scrollbar {
+        display: none;
+    }
+
